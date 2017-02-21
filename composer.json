@@ -13,13 +13,14 @@
     "prefer-stable": true,
     "require": {
         "php": "^5.6 || ^7.0",
+        "phpunit/phpunit": "^4.0 || ^5.0",
         "zendframework/zend-component-installer": "^1.0 || ^0.3 || ^1.0.0-dev@dev",
         "zendframework/zend-mvc": "^3.0.1",
         "zfcampus/zf-development-mode": "^3.0",
         "zendframework/zend-db": "^2.8.1",
         "zendframework/zend-mvc-form": "^1.0",
         "doctrine/doctrine-orm-module": "^1.1",
-        "snapshotpl/zf-snap-jquery": "^0.5.1"
+        "zendframework/zend-test": "^3.0"
     },
     "autoload": {
         "psr-4": {
@@ -31,7 +32,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "ApplicationTest\\": "module/Application/test/"
+            "ApplicationTest\\": "module/Application/test/",
+            "ActorTest\\": "module/Actor/test/"
         }
     },
     "extra": [],

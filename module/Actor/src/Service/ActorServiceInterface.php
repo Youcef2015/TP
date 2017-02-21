@@ -19,7 +19,7 @@ interface ActorServiceInterface
      *
      * @return Actor|null
      */
-    public function getBlogById(int $id): Actor;
+    public function getActorById(int $id): Actor;
     public function create(Actor $actor): Actor;
     public function edit(Actor $actor): Actor;
     public function delete(Actor $actor): bool;

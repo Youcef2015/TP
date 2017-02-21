@@ -49,6 +49,8 @@ class FilmService implements FilmServiceInterface
 
     public function create(Film $film)
     {
+        //$film->setDtRelease($film->getDtRelease()->format('Y-m-d'));
+
         $this->entityManager->persist($film);
         $this->entityManager->flush($film);
 
@@ -57,6 +59,8 @@ class FilmService implements FilmServiceInterface
 
     public function edit(Film $film)
     {
+        $film->setDtUpdate(new \DateTime());
+
         $this->entityManager->flush($film);
 
         return $film;

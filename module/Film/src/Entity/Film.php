@@ -11,7 +11,9 @@ namespace Film\Entity;
 
 use Actor\Entity\Actor;
 use Category\Entity\Category;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Zend\Form\Element\DateTime;
 
 /**
  * Class Film
@@ -45,12 +47,6 @@ class Film
      */
     public $synopsis;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="genre", type="string", length=100)
-     */
-    public $genre;
 
     /**
      * @var string
@@ -60,7 +56,7 @@ class Film
     public $director;
 
     /**
-     * @ORM\Column(type="datetime", name="date_release")
+     * @ORM\Column(type="datetime", name="date_release", nullable=true)
      */
     private $dtRelease;
 
@@ -82,14 +78,16 @@ class Film
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="Actor\Entity\Actor")
-     * @ORM\JoinTable(name="Film_Actor",
-     *      joinColumns={@ORM\JoinColumn(name="film_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="actor_id", referencedColumnName="id", unique=true)}
-     *      )
+     * @ORM\ManyToOne(targetEntity="Actor\Entity\Actor")
+     * @ORM\JoinColumn(name="actor_id", referencedColumnName="id")
      */
 
-    private $actors;
+    private $actor;
+
+    public function __construct()
+    {
+        $this->dtCreation = new \DateTime();
+    }
 
     /**
      * @return int
@@ -147,26 +145,6 @@ class Film
     public function setSynopsis(string $synopsis)
     {
         $this->synopsis = $synopsis;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getGenre()
-    {
-        return $this->genre;
-    }
-
-    /**
-     * @param string $genre
-     *
-     * @return $this
-     */
-    public function setGenre(string $genre)
-    {
-        $this->genre = $genre;
 
         return $this;
     }
@@ -272,21 +250,22 @@ class Film
     }
 
     /**
-     * @return Actor[]
+     * @return Actor
      */
-    public function getActors()
+    public function getActor()
     {
-        return $this->actors;
+        return $this->actor;
     }
 
     /**
-     * @param Actor $actors
+     * @param Actor $actor
      *
      * @return $this
+     *
      */
-    public function setActors(Actor $actors)
+    public function setActor(Actor $actor)
     {
-        $this->actors = $actors;
+        $this->actor = $actor;
 
         return $this;
     }

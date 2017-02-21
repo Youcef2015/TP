@@ -10,26 +10,23 @@ declare(strict_types = 1);
 namespace Film\Form\Fieldset;
 
 
+use Actor\Entity\Actor;
 use Category\Entity\Category;
 use Doctrine\ORM\EntityManager;
 use DoctrineModule\Form\Element\ObjectSelect;
 use Film\Entity\Film;
-use Zend\Db\Sql\Ddl\Column\Date;
 use Zend\Filter\StringToUpper;
 use Zend\Filter\StringTrim;
 use Zend\Filter\StripTags;
 use Zend\Filter\ToInt;
-use Zend\Form\Element\DateTime;
+use Zend\Form\Element\Date;
 use Zend\Form\Element\Hidden;
-use Zend\Form\Element\Submit;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use Zend\Validator\StringLength;
-use ZfSnapJquery\Libraries\Jquery;
-use ZfSnapJquery\View\Helper\JqueryCaller;
 
 
 class FilmFieldSet extends Fieldset implements InputFilterProviderInterface
@@ -65,15 +62,6 @@ class FilmFieldSet extends Fieldset implements InputFilterProviderInterface
         );
         $this->add(
             [
-                'name'    => 'genre',
-                'type'    => Text::class,
-                'options' => [
-                    'label' => 'Genre',
-                ],
-            ]
-        );
-        $this->add(
-            [
                 'name'    => 'title',
                 'type'    => Text::class,
                 'options' => [
@@ -90,12 +78,14 @@ class FilmFieldSet extends Fieldset implements InputFilterProviderInterface
                 ],
             ]
         );
+
         $this->add(
             [
-                'name'    => 'date_release',
-                'type'    => \ZfSnapJquery\Form\Element\Datepicker::class,
+                'name'    => 'dtRelease',
+                'type'    => Date::class,
                 'options' => [
                     'label' => 'Date de sortie',
+                    'format' => 'Y-m-d'
                 ],
             ]
         );
@@ -113,7 +103,27 @@ class FilmFieldSet extends Fieldset implements InputFilterProviderInterface
                     'find_method'        => [
                         'name'   => 'getCategories',
                     ],
-                    'display_empty_item' => true
+                    'display_empty_item' => true,
+                    'empty_option'  => '--- select une catégorie ---',
+                ],
+            ]
+        );
+
+        $this->add(
+            [
+                'name'    => 'actor',
+                'type'    => ObjectSelect::class,
+                'options' => [
+                    'label' => 'Acteurs',
+                    'target_class'   => Actor::class,
+                    'object_manager' => $this->objectManger,
+                    'is_method'      => true,
+                    'property' => 'firstName',
+                    'find_method'        => [
+                        'name'   => 'getActors',
+                    ],
+                    'display_empty_item' => true,
+                    'empty_option'  => '--- select un acteur ---',
                 ],
             ]
         );

@@ -85,8 +85,8 @@ class FilmController extends AbstractActionController
             if($this->filmForm->isValid()) {
                 $film = $this->filmForm->getData();
 
-                $this->filmForm->edit($film);
-                return $this->redirect()->toRoute('album');
+                $this->filmService->edit($film);
+                return $this->redirect()->toRoute('film');
             }
         }
 
@@ -100,6 +100,26 @@ class FilmController extends AbstractActionController
 
     public function deleteAction()
     {
+        $filmId = (int)$this->params()->fromRoute('id', 0);
+        $film = $this->filmService->getFilmById($filmId);
+        /** @var Request $request */
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $del = $request->getPost('del', 'No');
 
+            if ($del == 'Yes') {
+                $id = (int)$request->getPost('id');
+                $film = $this->filmService->getFilmById($id);
+                $this->filmService->delete($film);
+            }
+
+            // Redirect to list of albums
+            return $this->redirect()->toRoute('film');
+        }
+
+        return [
+            'id'    => $filmId,
+            'film'  => $film,
+        ];
     }
 }

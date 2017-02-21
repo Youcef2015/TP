@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Actor\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Film\Entity\Film;
 
@@ -46,28 +47,19 @@ class Actor
     public $lastName;
 
     /**
-     * @var \DateTime
      *
-     * @ORM\Column(name="date_birth", type="datetime")
+     * @ORM\Column(name="date_birth", type="datetime", nullable =true)
      */
-    public $dateBirth;
+    public $dtBirth;
+
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="sex", type="string", length=100)
+     * @ORM\Column(name="sex", type="integer", length=100)
      */
     public $sex;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Film\Entity\Film")
-     * @ORM\JoinTable(name="Film_Actor",
-     *      joinColumns={@ORM\JoinColumn(name="actor_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="film_id", referencedColumnName="id", unique=true)}
-     *      )
-     */
-
-    public $films;
 
     /**
      * @return int
@@ -132,25 +124,25 @@ class Actor
     /**
      * @return \DateTime
      */
-    public function getDateBirth()
+    public function getDtBirth()
     {
-        return $this->dateBirth;
+        return $this->dtBirth;
     }
 
     /**
-     * @param \DateTime $dateBirth
+     * @param \DateTime $dtBirth
      *
      * @return $this
      */
-    public function setDateBirth(\DateTime $dateBirth)
+    public function setDtBirth(\DateTime $dtBirth)
     {
-        $this->dateBirth = $dateBirth;
+        $this->dtBirth = $dtBirth;
 
         return $this;
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getSex()
     {
@@ -158,33 +150,13 @@ class Actor
     }
 
     /**
-     * @param string $sex
+     * @param int $sex
      *
      * @return $this
      */
-    public function setSex(string $sex)
+    public function setSex(int $sex)
     {
         $this->sex = $sex;
-
-        return $this;
-    }
-
-    /**
-     * @return Film
-     */
-    public function getFilms()
-    {
-        return $this->films;
-    }
-
-    /**
-     * @param Film $films
-     *
-     * @return $this
-     */
-    public function setFilms(Film $films)
-    {
-        $this->films = $films;
 
         return $this;
     }

@@ -9,19 +9,24 @@ $this->headTitle($title);
 
 <table class="table">
     <tr>
+        <th>Title</th>
         <th>Synopsis</th>
-        <th>Genre</th>
         <th>Date Sortie</th>
+        <th>Catégorie</th>
+        <th>Acteur</th>
         <th>&nbsp;</th>
     </tr>
     <?php foreach ($this->films as $film) : ?>
         <?php /** @var \Film\Entity\Film $film */ ?>
         <tr>
-            <td><?= $this->escapeHtml($film->getTitle()) ?></td>
-            <td><?= $this->escapeHtml($film->getGenre()) ?></td>
+            <td><?= $this->escapeHtml($film->getTitle()); ?></td>
+            <td><?= $this->escapeHtml($film->getSynopsis()); ?></td>
+            <td><?= $this->escapeHtml($film->getDtRelease()->format('d/m/Y')); ?></td>
+            <td><?= $this->escapeHtml($film->getCategory()->getTitle()); ?></td>
+            <td><?= $this->escapeHtml($film->getActor()->getFirstName(). ' '.$film->getActor()->getLastName()); ?></td>
             <td>
-                <a href="<?= $this->url('album', ['action' => 'edit', 'id' => $film->getId()]) ?>">Edit</a>
-                <a href="<?= $this->url('album', ['action' => 'delete', 'id' => $film->getId()]) ?>">Delete</a>
+                <a href="<?= $this->url('film', ['action' => 'edit', 'id' => $film->getId()]) ?>">Edit</a>
+                <a href="<?= $this->url('film', ['action' => 'delete', 'id' => $film->getId()]) ?>">Delete</a>
             </td>
         </tr>
     <?php endforeach; ?>

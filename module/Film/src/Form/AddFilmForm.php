@@ -38,10 +38,11 @@ class AddFilmForm extends Form
                 'film' => [
                     'id',
                     'synopsis',
-                    'genre',
                     'title',
                     'director',
-                    'date_release'
+                    'dtRelease',
+                    'category',
+                    'actor'
                 ]
             ]
         );

@@ -42,7 +42,7 @@ class ActorService implements ActorServiceInterface
      *
      * @return Actor|null
      */
-    public function getBlogById(int $id): Actor
+    public function getActorById(int $id): Actor
     {
         return $this->actorRepository->find($id);
     }

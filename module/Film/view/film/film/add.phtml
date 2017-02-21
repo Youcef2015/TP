@@ -20,10 +20,10 @@ $synopsis->setAttribute('class', 'form-control');
 $synopsis->setAttribute('placeholder', 'Film synopsis');
 
 // This provides a default CSS class and placeholder text for the artist element:
-/** @var \Zend\Form\Form $genre */
-$genre = $this->form->get('film')->get('genre');
-$genre->setAttribute('class', 'form-control');
-$genre->setAttribute('placeholder', 'Film genre');
+/** @var \Zend\Form\Form $synopsis */
+$dtRelease = $this->form->get('film')->get('dtRelease');
+$dtRelease->setAttribute('class', 'form-control');
+$dtRelease->setAttribute('placeholder', 'Film synopsis');
 
 // This provides a default CSS class and placeholder text for the artist element:
 /** @var \Zend\Form\Form $director */
@@ -31,17 +31,15 @@ $director = $this->form->get('film')->get('director');
 $director->setAttribute('class', 'form-control');
 $director->setAttribute('placeholder', 'Film Réalisateur');
 
-
-// This provides a default CSS class and placeholder text for the artist element:
-/** @var \Zend\Form\Form $dateRelease */
-$dateRelease = $this->form->get('film')->get('date_release');
-$dateRelease->setAttribute('class', 'form-control');
-$dateRelease->setAttribute('placeholder', 'Film Réalisateur');
-
 /** @var \Zend\Form\Form $category */
 $category = $this->form->get('film')->get('category');
 $category->setAttribute('class', 'form-control');
 $category->setAttribute('placeholder', 'Film Categories');
+
+/** @var \Zend\Form\Form $actor */
+$actor = $this->form->get('film')->get('actor');
+$actor->setAttribute('class', 'form-control');
+$actor->setAttribute('placeholder', 'acteurs');
 
 // This provides CSS classes for the submit button:
 /** @var \Zend\Form\Form $submit */
@@ -68,9 +66,9 @@ echo $this->form()->openTag($this->form);
     </div>
 
     <div class="form-group">
-        <?= $this->formLabel($genre) ?>
-        <?= $this->formElement($genre) ?>
-        <?= $this->formElementErrors()->render($genre, ['class' => 'help-block']) ?>
+        <?= $this->formLabel($dtRelease) ?>
+        <?= $this->formElement($dtRelease) ?>
+        <?= $this->formElementErrors()->render($dtRelease, ['class' => 'help-block']) ?>
     </div>
 
     <div class="form-group">
@@ -80,15 +78,15 @@ echo $this->form()->openTag($this->form);
     </div>
 
     <div class="form-group">
-        <?= $this->formLabel($dateRelease) ?>
-        <?= $this->formElement($dateRelease) ?>
-        <?= $this->formElementErrors()->render($dateRelease, ['class' => 'help-block']) ?>
-    </div>
-
-    <div class="form-group">
         <?= $this->formLabel($category) ?>
         <?= $this->formElement($category) ?>
         <?= $this->formElementErrors()->render($category, ['class' => 'help-block']) ?>
+    </div>
+
+    <div class="form-group">
+        <?= $this->formLabel($actor) ?>
+        <?= $this->formElement($actor) ?>
+        <?= $this->formElementErrors()->render($actor, ['class' => 'help-block']) ?>
     </div>
 
 <?php

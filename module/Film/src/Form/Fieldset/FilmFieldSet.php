@@ -113,6 +113,9 @@ class FilmFieldSet extends Fieldset implements InputFilterProviderInterface
             [
                 'name'    => 'actor',
                 'type'    => ObjectSelect::class,
+                'attributes' => [
+                    'multiple' => true,
+                ],
                 'options' => [
                     'label' => 'Acteurs',
                     'target_class'   => Actor::class,
@@ -123,7 +126,7 @@ class FilmFieldSet extends Fieldset implements InputFilterProviderInterface
                         'name'   => 'getActors',
                     ],
                     'display_empty_item' => true,
-                    'empty_option'  => '--- select un acteur ---',
+                    'empty_option'  => '--- select un ou plusieurs acteurs ---',
                 ],
             ]
         );

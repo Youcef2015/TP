@@ -104,6 +104,28 @@ class ActorFiledSet extends Fieldset implements InputFilterProviderInterface
                 ],
             ]
         );
+
+        $this->add(
+            [
+                'name'    => 'film',
+                'type'    => ObjectSelect::class,
+                'attributes' => [
+                    'multiple' => true,
+                ],
+                'options' => [
+                    'label' => 'Films',
+                    'target_class'   => Film::class,
+                    'object_manager' => $this->objectManager,
+                    'is_method'      => true,
+                    'property' => 'title',
+                    'find_method'        => [
+                        'name'   => 'getFilms',
+                    ],
+                    'display_empty_item' => true,
+                    'empty_option'  => '--- select un ou plusieurs acteurs ---',
+                ],
+            ]
+        );
     }
 
     /**

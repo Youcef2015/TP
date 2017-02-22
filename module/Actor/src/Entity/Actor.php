@@ -11,6 +11,7 @@ namespace Actor\Entity;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Film\Entity\Film;
 
@@ -60,6 +61,16 @@ class Actor
      */
     private $sex;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Film\Entity\Film", mappedBy="Actor\Entity\Actor")
+     */
+
+     private $film;
+
+     public function __construct()
+     {
+         $this->film = new ArrayCollection();
+     }
 
     /**
      * @return int
@@ -159,5 +170,41 @@ class Actor
         $this->sex = $sex;
 
         return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getFilm()
+    {
+        return $this->film;
+    }
+
+    /**
+     * @param ArrayCollection $film
+     *
+     * @return $this
+     */
+    public function setFilm(ArrayCollection $film)
+    {
+        $this->film = $film;
+
+        return $this;
+    }
+
+
+
+    public function addFilm(Collection $films)
+    {
+        foreach($films as $film) {
+            $this->film[] = $film;
+        }
+    }
+
+    public function removeFilm(Collection $films)
+    {
+        foreach ($films as $film) {
+            $this->actor->removeElement($films);
+        }
     }
 }

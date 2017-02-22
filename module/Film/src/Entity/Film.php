@@ -12,6 +12,7 @@ namespace Film\Entity;
 use Actor\Entity\Actor;
 use Category\Entity\Category;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Form\Element\DateTime;
 
@@ -78,14 +79,19 @@ class Film
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="Actor\Entity\Actor")
-     * @ORM\JoinColumn(name="actor_id", referencedColumnName="id")
+     * Many Films have Many Actors.
+     * @ORM\ManyToMany(targetEntity="Actor\Entity\Actor", inversedBy="Film\Entity\Film", cascade={"persist"})
+     * @ORM\JoinTable(name="actor_film",
+     *      joinColumns={@ORM\JoinColumn(name="film_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="actor_id", referencedColumnName="id")}
+     *      )
      */
 
     private $actor;
 
     public function __construct()
     {
+        $this->actor = new ArrayCollection();
         $this->dtCreation = new \DateTime();
     }
 
@@ -250,7 +256,7 @@ class Film
     }
 
     /**
-     * @return Actor
+     * @return Collection
      */
     public function getActor()
     {
@@ -258,15 +264,28 @@ class Film
     }
 
     /**
-     * @param Actor $actor
+     * @param Collection $actor
      *
      * @return $this
-     *
      */
-    public function setActor(Actor $actor)
+    public function setActor(Collection $actor)
     {
         $this->actor = $actor;
 
         return $this;
+    }
+
+    public function addActor(Collection $actors)
+    {
+        foreach($actors as $actor) {
+            $this->actor[] = $actor;
+        }
+    }
+
+    public function removeActor(Collection $actors)
+    {
+        foreach ($actors as $actor) {
+            $this->actor->removeElement($actor);
+        }
     }
 }

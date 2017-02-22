@@ -13,6 +13,7 @@ $this->headTitle($title);
         <th>Prénom</th>
         <th>Date de naissance</th>
         <th>Sexe</th>
+        <th>Acteurs</th>
         <th>&nbsp;</th>
     </tr>
     <?php foreach ($this->actors as $actor) : ?>
@@ -22,6 +23,15 @@ $this->headTitle($title);
             <td><?= $this->escapeHtml($actor->getLastName()) ?></td>
             <td><?= $this->escapeHtml($actor->getDtBirth()->format('d/m/Y')) ?></td>
             <td><?= ($actor->getSex() == 1) ? 'Monsieur': 'Madame' ?></td>
+            <td>
+                <table>
+                    <?php foreach ($actor->getFilm() as $film) : ?>
+                        <tr>
+                            <td><?= $this->escapeHtml($film->getTitle()); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </td>
             <td>
                 <a href="<?= $this->url('actor', ['action' => 'edit',   'id' => $actor->getId()]) ?>">Edit</a>
                 <a href="<?= $this->url('actor', ['action' => 'delete', 'id' => $actor->getId()]) ?>">Delete</a>

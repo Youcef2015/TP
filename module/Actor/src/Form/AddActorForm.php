@@ -41,6 +41,7 @@ class AddActorForm extends Form
                     'lastName',
                     'dtBirth',
                     'sex',
+                    'film'
                 ]
             ]
         );

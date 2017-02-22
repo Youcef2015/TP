@@ -31,21 +31,21 @@ class Film
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    private $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=100)
      */
-    public $title;
+    private $title;
 
     /**
      * @var string
      *
      * @ORM\Column(name="synopsis", type="text")
      */
-    public $synopsis;
+    private $synopsis;
 
 
     /**
@@ -53,7 +53,7 @@ class Film
      *
      * @ORM\Column(name="director", type="string", length=100)
      */
-    public $director;
+    private $director;
 
     /**
      * @ORM\Column(type="datetime", name="date_release", nullable=true)

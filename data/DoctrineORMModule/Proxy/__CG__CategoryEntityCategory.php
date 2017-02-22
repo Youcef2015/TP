@@ -36,7 +36,7 @@ class Category extends \Category\Entity\Category implements \Doctrine\ORM\Proxy\
      *
      * @see \Doctrine\Common\Persistence\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = ['title' => NULL];
+    public static $lazyPropertiesDefaults = [];
 
 
 
@@ -46,60 +46,16 @@ class Category extends \Category\Entity\Category implements \Doctrine\ORM\Proxy\
      */
     public function __construct($initializer = null, $cloner = null)
     {
-        unset($this->title);
 
         $this->__initializer__ = $initializer;
         $this->__cloner__      = $cloner;
     }
 
-    /**
-     * 
-     * @param string $name
-     */
-    public function __get($name)
-    {
-        if (array_key_exists($name, $this->__getLazyProperties())) {
-            $this->__initializer__ && $this->__initializer__->__invoke($this, '__get', [$name]);
 
-            return $this->$name;
-        }
 
-        trigger_error(sprintf('Undefined property: %s::$%s', __CLASS__, $name), E_USER_NOTICE);
-    }
 
-    /**
-     * 
-     * @param string $name
-     * @param mixed  $value
-     */
-    public function __set($name, $value)
-    {
-        if (array_key_exists($name, $this->__getLazyProperties())) {
-            $this->__initializer__ && $this->__initializer__->__invoke($this, '__set', [$name, $value]);
 
-            $this->$name = $value;
 
-            return;
-        }
-
-        $this->$name = $value;
-    }
-
-    /**
-     * 
-     * @param  string $name
-     * @return boolean
-     */
-    public function __isset($name)
-    {
-        if (array_key_exists($name, $this->__getLazyProperties())) {
-            $this->__initializer__ && $this->__initializer__->__invoke($this, '__isset', [$name]);
-
-            return isset($this->$name);
-        }
-
-        return false;
-    }
 
     /**
      * 
@@ -108,10 +64,10 @@ class Category extends \Category\Entity\Category implements \Doctrine\ORM\Proxy\
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'title'];
+            return ['__isInitialized__', '' . "\0" . 'Category\\Entity\\Category' . "\0" . 'id', '' . "\0" . 'Category\\Entity\\Category' . "\0" . 'title'];
         }
 
-        return ['__isInitialized__', 'id'];
+        return ['__isInitialized__', '' . "\0" . 'Category\\Entity\\Category' . "\0" . 'id', '' . "\0" . 'Category\\Entity\\Category' . "\0" . 'title'];
     }
 
     /**
@@ -133,7 +89,6 @@ class Category extends \Category\Entity\Category implements \Doctrine\ORM\Proxy\
                 }
             };
 
-            unset($this->title);
         }
     }
 

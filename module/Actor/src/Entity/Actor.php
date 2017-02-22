@@ -30,27 +30,27 @@ class Actor
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    private $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=100)
      */
-    public $firstName;
+    private $firstName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=100)
      */
-    public $lastName;
+    private $lastName;
 
     /**
      *
      * @ORM\Column(name="date_birth", type="datetime", nullable =true)
      */
-    public $dtBirth;
+    private $dtBirth;
 
 
     /**
@@ -58,7 +58,7 @@ class Actor
      *
      * @ORM\Column(name="sex", type="integer", length=100)
      */
-    public $sex;
+    private $sex;
 
 
     /**
